@@ -14,13 +14,19 @@ class CategoryItem extends StatelessWidget {
     this.color,
   );
   //methode pour acceder à une categorie selectionner
-  void selectCategory(BuildContext ctx){
-    Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return CategoryMealsScreen(id, title);
+  void selectCategory(BuildContext ctx) {
+    // Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
+    //   return CategoryMealsScreen(id, title);
 
-    },),);
+    // },),);
+    Navigator.of(ctx).pushNamed(
+      CategoryMealsScreen.routeName,
+      arguments: {
+        'id': id,
+        'title': title,
+      },
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +43,13 @@ class CategoryItem extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            color.withOpacity(0.7),
-            color,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          gradient: LinearGradient(
+            colors: [
+              color.withOpacity(0.7),
+              color,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(15),
         ),
