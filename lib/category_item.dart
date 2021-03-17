@@ -4,17 +4,19 @@ import './category_meals_screen.dart';
 
 class CategoryItem extends StatelessWidget {
   // j'attend comme donnée un titre et une couleur
+  final String id;
   final String title;
   final Color color;
   //ajout du construteur pour attribuer les valeurs au propriéte title et color
   CategoryItem(
+    this.id,
     this.title,
     this.color,
   );
   //methode pour acceder à une categorie selectionner
   void selectCategory(BuildContext ctx){
     Navigator.of(ctx).push(MaterialPageRoute(builder: (_) {
-      return CategoryMealsScreen();
+      return CategoryMealsScreen(id, title);
 
     },),);
   }
