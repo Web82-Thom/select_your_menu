@@ -6,11 +6,11 @@ import 'category_item.dart';
 class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Une liste avec GridView(remplace ListView) qui possede un mode constructeur
     return Scaffold(
       appBar: AppBar(
         title: const Text('DeliMeal'),
       ),
+      // Une liste avec GridView(remplace ListView) qui possede un mode constructeur
       body: GridView(
         padding: const EdgeInsets.all(25),
         //jappel dans mon children ma liste
