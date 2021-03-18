@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
   //propriété pour afficher un repas
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
@@ -10,6 +13,7 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
   //conxtructeur
   MealItem({
+    @required this.id,
     @required this.title,
     @required this.imageUrl,
     @required this.duration,
@@ -49,15 +53,18 @@ class MealItem extends StatelessWidget {
     }
   }
 
-
-  //methode de selection de repas
-  void selecMeal() {}
+  //methode de selection de repas et voir la recette
+  void selecMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      MealDetailScreen.routeName, 
+      arguments: ({id}),);
+  }
 
   @override
   Widget build(BuildContext context) {
     //InkWell element clickable
     return InkWell(
-      onTap: selecMeal,
+      onTap: () => selecMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -99,7 +106,6 @@ class MealItem extends StatelessWidget {
                       softWrap: true,
                       // disparait si trop grand
                       overflow: TextOverflow.fade,
-                      
                     ),
                   ),
                 ),
@@ -134,12 +140,8 @@ class MealItem extends StatelessWidget {
                       Text(affordabilityText,),
                     ],
                   ),
-
                 ],
-                  
-                
-
-            ),
+              ),
             ),
           ],
         ),
