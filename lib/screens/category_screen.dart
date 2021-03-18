@@ -6,12 +6,8 @@ import '../widgets/category_item.dart';
 class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('DeliMeal'),
-      ),
-      // Une liste avec GridView(remplace ListView) qui possede un mode constructeur
-      body: GridView(
+    //pas besoin du scaffold appBar, car il est gerer par tabsScreen
+    return GridView(
         padding: const EdgeInsets.all(25),
         //jappel dans mon children ma liste
         children: DUMMY_CATEGORIES
@@ -28,7 +24,6 @@ class CategoriesScreen extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
         ),
-      ),
-    );
-  }
+      );
+}
 }
