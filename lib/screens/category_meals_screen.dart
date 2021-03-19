@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../models/meal.dart';
 import '../widgets/meal_item.dart';
-import '../dummy_data.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
+  final List<Meal> availableMeals;
+ CategoryMealsScreen(this.availableMeals);
   
 
   @override
@@ -30,7 +31,7 @@ class CategoryMealsScreen extends StatefulWidget {
       categoryTitle = routeArgs['title'];
       final categoryId = routeArgs['id'];
       //retrouver la recette par rapport à sa categorie
-      displayedMeals = DUMMY_MEALS.where((meal) {
+      displayedMeals = widget.availableMeals.where((meal) {
         return meal.categories.contains(categoryId);
       }).toList();
       _loadInitData = true;
