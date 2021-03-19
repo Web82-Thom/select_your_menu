@@ -99,8 +99,20 @@ class MealDetailScreen extends StatelessWidget {
                   ),
                   itemCount: selectedMeal.steps.length,
                 ),
-              )],
+              ),
+            ],
           ),
+        ),
+        //boutton pour supprimer temporairement une recette qu'on aime pas
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.delete,
+            size: 10,
+          ),
+          onPressed: () {
+            //pop supprime les ecrans au dessus de la pile, retour en arriere, supprime une boite de dialogue
+            Navigator.of(context).pop(mealId);
+          },
         ),
     );
   }
