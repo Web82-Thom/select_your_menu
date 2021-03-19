@@ -6,6 +6,12 @@ class FiltersScreen extends StatefulWidget {
   //construction de ma route
   static const routeName = '/filtres';
 
+  final Function saveFilters;
+  final Map<String, bool> currentFilter;
+
+  FiltersScreen(this.currentFilter, this.saveFilters);
+  
+
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
 }
@@ -16,6 +22,16 @@ class _FiltersScreenState extends State<FiltersScreen> {
   bool _vegetarian = false;
   bool _vegan = false;
   bool _lactoseFree = false;
+
+  @override
+  initState() {
+    _glutenFree = widget.currentFilter['gluten'];
+    _vegetarian = widget.currentFilter['vegetarian'];
+    _vegan = widget.currentFilter['vegan'];
+    _lactoseFree = widget.currentFilter['lactose'];
+    super.initState();
+  }
+ 
 
   //constructeur des listes de switch
   Widget _buildSwitchListTile(
@@ -37,6 +53,22 @@ class _FiltersScreenState extends State<FiltersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Mes filtres'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.save
+            ), 
+            onPressed: () {
+              final selectedFilters = {
+                'gluten': _glutenFree,
+                'lactose': _lactoseFree,
+                'vegan': _vegan,
+                'vegetarian': _vegetarian,
+              };
+              widget.saveFilters(selectedFilters);
+            },
+          ),
+        ],
       ),
       drawer: MainDrawer(),
       body: Column(
@@ -51,8 +83,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
           Expanded(
             child: ListView(children: <Widget>[
               _buildSwitchListTile(
-                'Sans Glutten', 
-                'Uniquement les recettes sans glutten',
+                'Sans Glutens', 
+                'Uniquement les recettes sans glutens',
                 _glutenFree,
                 (newValue) {
                   setState(() {
