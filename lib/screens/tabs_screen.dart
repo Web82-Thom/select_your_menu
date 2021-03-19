@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../widgets/main_drawer.dart';
 import './favorites_screen.dart';
 import './category_screen.dart';
+import '../models/meal.dart';
 
 //le widget qui va gerer les appel des onglets selon la page afficher
 class TabsScreen extends StatefulWidget {
+  final List<Meal> favoriteMeals;
+
+  TabsScreen(this.favoriteMeals);
+
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
@@ -13,19 +18,24 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
 
   //stockage pages dans une List
-  final List<Map<String, Object>> _pages = [
-    {
-      'page': CategoriesScreen(),
-      'title': 'Categories',
-    },
-    {
-      'page': FavoritesScreen(),
-      'title': 'Mes favories',
-    },
-  ];
+  List<Map<String, Object>> _pages;
   //indexation
   int _selectedPageIndex = 0;
   
+  @override
+  void initState() {
+      _pages = [
+      {
+        'page': CategoriesScreen(),
+        'title': 'Categories',
+      },
+      {
+        'page': FavoritesScreen(widget.favoriteMeals),
+        'title': 'Mes favories',
+      },
+    ];
+    super.initState();
+  }
   //methode pour selectionner une page
   void _selectPage(int index) {
     setState(() {

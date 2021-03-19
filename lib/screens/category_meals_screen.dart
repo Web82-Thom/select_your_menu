@@ -39,11 +39,11 @@ class CategoryMealsScreen extends StatefulWidget {
     super.didChangeDependencies();
   }
   //methode pour supprimer une recette
-  void _removeMeal(String mealId) {
-    setState(() {
-      displayedMeals.removeWhere((meal) => meal.id == mealId);
-    });
-  }
+  // void _removeMeal(String mealId) {
+  //   setState(() {
+  //     displayedMeals.removeWhere((meal) => meal.id == mealId);
+  //   });
+  // }
   
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,6 @@ class CategoryMealsScreen extends StatefulWidget {
             duration: displayedMeals[index].duration,
             affordability: displayedMeals[index].affordability,
             complexity: displayedMeals[index].complexity,
-            removeItem: _removeMeal,
           );
         },
         itemCount: displayedMeals.length,

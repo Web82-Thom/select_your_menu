@@ -25,8 +25,10 @@ class _MyAppState extends State<MyApp> {
     'vegan': false,
     'vegetarian': false,
   };
-  // instancie le getter DUMMY_MEALS
+  // creation de la liste instancie le getter DUMMY_MEALS
   List<Meal> _availableMeals = DUMMY_MEALS;
+  //creation de la listes des favoris
+  List<Meal> _favoriteMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -49,6 +51,28 @@ class _MyAppState extends State<MyApp> {
       }).toList();
     });
   }
+
+  //methode pour les favoris 
+  void _toggleFavorite(String mealId) {
+    final existingIndex = _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(
+          DUMMY_MEALS.firstWhere((meal) => meal.id == mealId),
+        );
+      });
+    }
+  }
+
+  // Methode pour garder les plats favoris
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +100,9 @@ class _MyAppState extends State<MyApp> {
       // home: CategoriesScreen(),
       initialRoute: '/', //par defaut
       routes: {
-        '/': (ctx) => TabsScreen(), //appel le generateur d'onglet qui gere lui meme les screens
+        '/': (ctx) => TabsScreen(_favoriteMeals), //appel le generateur d'onglet qui gere lui meme les screens
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(_toggleFavorite,_isMealFavorite),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilters,),
       },
       onGenerateRoute: (settings) {

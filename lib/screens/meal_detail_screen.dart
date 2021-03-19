@@ -4,6 +4,12 @@ import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-details' ;
+
+  final Function toggleFavorite;
+  final Function isFavorite;
+
+  MealDetailScreen(this.toggleFavorite, this.isFavorite,);
+
   //Creation d'un widget constructeur pour les Titres afin d'eviter de repeter du code
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -36,7 +42,7 @@ class MealDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //recupere ID
-    final mealId = ModalRoute.of(context).settings.arguments;
+    final mealId = ModalRoute.of(context).settings.arguments as String;
     //recupere les data de ID et verfif ==
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
     // final mealTitle = ModalRoute.of(context).settings.arguments;
@@ -106,13 +112,11 @@ class MealDetailScreen extends StatelessWidget {
         //boutton pour supprimer temporairement une recette qu'on aime pas
         floatingActionButton: FloatingActionButton(
           child: Icon(
-            Icons.delete,
-            size: 10,
+            isFavorite(mealId) 
+            ? Icons.star : Icons.star_border ,
+            color: Colors.red,
           ),
-          onPressed: () {
-            //pop supprime les ecrans au dessus de la pile, retour en arriere, supprime une boite de dialogue
-            Navigator.of(context).pop(mealId);
-          },
+          onPressed: () => toggleFavorite(mealId),
         ),
     );
   }
