@@ -11,6 +11,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
   //conxtructeur
   MealItem({
     @required this.id,
@@ -19,6 +20,7 @@ class MealItem extends StatelessWidget {
     @required this.duration,
     @required this.complexity,
     @required this.affordability,
+    @required this.removeItem,
   });
 
   String get complexityText {
@@ -53,11 +55,15 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  //methode de selection de repas et voir la recette
+  //methode de selection de repas et voir la recette et recuperer la valeur id grace a Navigator.pop dans meal detail screen onTap
   void selecMeal(BuildContext context) {
     Navigator.of(context).pushNamed(
       MealDetailScreen.routeName, 
-      arguments: id,);
+      arguments: id,).then((result) {
+        if (result != null) {
+          removeItem(result);
+        }
+      });
   }
 
   @override
